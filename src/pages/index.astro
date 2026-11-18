@@ -41,6 +41,7 @@ const heroImg = ph('girls-painting.webp');
         <ul class="trust" aria-label="Коротко о центре">
           <li><a href={site.gis} target="_blank" rel="noopener"><span class="trust-star" aria-hidden="true">★</span><b>{site.rating.value}</b>&nbsp;· {site.rating.reviews} отзывов в 2ГИС</a></li>
           <li><span>Пн–пт до 20:30</span></li>
+          <li><span>{site.station}</span></li>
           <li><a href={site.route} target="_blank" rel="noopener">Улы Дала, 31 · со стороны Сайран Арены</a></li>
         </ul>
       </div>
@@ -220,7 +221,7 @@ const heroImg = ph('girls-painting.webp');
       <div>
         <h2 id="ct-h">Как нас найти</h2>
         <p class="ct-addr">{site.address}</p>
-        <p class="ct-muted">{site.addressMore}.</p>
+        <p class="ct-muted">{site.addressMore}; {site.station}.</p>
         <dl class="ct-hours">{site.hours.map(([d, h]) => <div><dt>{d}</dt><dd>{h}</dd></div>)}</dl>
         <p><a class="ct-phone" href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></p>
         <p class="ct-muted">Оплата наличными, картой, переводом или по QR.</p>

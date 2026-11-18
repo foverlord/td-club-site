@@ -11,6 +11,7 @@ export const site = {
   address: 'пр. Улы Дала, 31, НП 7, ЖК «Алпамыс»',
   addressMore: 'Блок А3, подъезд 9, со стороны Сайран Арены',
   city: 'Астана',
+  station: 'станция «Улы Дала», 750 м',
   gis: 'https://2gis.kz/astana/firm/70000001067676021',
   route: 'https://2gis.kz/astana/directions/to/71.398231,51.100401',
   geo: { lat: 51.100401, lng: 71.398231 },
