@@ -106,7 +106,7 @@ const heroImg = ph('girls-painting.webp');
                 <h3>{g.title}</h3>
                 <ul class="items">
                   {g.items.map((it) => (
-                    <li><a href={waUrl(it.title)} target="_blank" rel="noopener" data-goal="wa_dir"><span class="it-txt"><span class="it-t">{it.title}</span>{showPrices && it.price && <><span class="it-p">{it.price}</span><small class="it-n">период уточняйте в WhatsApp</small></>}</span><span class="it-wa" aria-hidden="true"><WaIcon /></span></a></li>
+                    <li><a href={waUrl(it.title)} target="_blank" rel="noopener" data-goal="wa_dir"><span class="it-txt"><span class="it-t">{it.title}</span>{showPrices && it.price && <><span class="it-p">{it.price}</span><small class="it-n">период уточняйте в WhatsApp</small></>}{it.note && <><small class="it-n">{it.note}</small>{showPrices && !it.price && <small class="it-n">цену уточняйте в WhatsApp</small>}</>}</span><span class="it-wa" aria-hidden="true"><WaIcon /></span></a></li>
                   ))}
                 </ul>
               </div>
@@ -125,7 +125,7 @@ const heroImg = ph('girls-painting.webp');
   <section class="sec sec--sky" id="mini" aria-labelledby="mini-h">
     <div class="wrap mini">
       <div class="mini-txt">
-        <p class="kicker">Раннее развитие</p>
+        <p class="kicker">Раннее развитие · {mini.age}</p>
         <h2 id="mini-h">{mini.title}</h2>
         <p class="lead">Для малышей: игры, конструктор, сюжетные занятия и первые шаги в группе.</p>
         {showPrices && <p class="mini-p">{mini.price}<small>период уточняйте в WhatsApp</small></p>}
