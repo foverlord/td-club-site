@@ -5,8 +5,7 @@ const sticky = document.querySelector<HTMLElement>('[data-sticky]');
 const hero = document.getElementById('top');
 const onScroll = () => {
   hdr?.classList.toggle('is-scrolled', scrollY > 8);
-  const ct = document.getElementById('kontakty');
-  if (sticky && hero && ct) sticky.classList.toggle('is-on', hero.getBoundingClientRect().bottom < 0 && ct.getBoundingClientRect().top > innerHeight);
+  if (sticky && hero) sticky.classList.toggle('is-on', hero.getBoundingClientRect().bottom < 0);
 };
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
 // лайтбокс
@@ -31,4 +30,24 @@ if (lb && holder) {
   lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
   lb.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') show(cur + 1); if (e.key === 'ArrowLeft') show(cur - 1); });
   lb.addEventListener('close', () => { document.documentElement.classList.remove('no-scroll'); opener?.focus(); });
+}
+// подбор «Что нравится ребёнку?»
+const pick = document.querySelector<HTMLElement>('[data-pick]');
+if (pick) {
+  const res = pick.querySelector<HTMLElement>('[data-pick-res]')!;
+  const go = pick.querySelector<HTMLAnchorElement>('[data-pick-go]')!;
+  const base = go.href;
+  const update = () => {
+    const on = $$<HTMLButtonElement>('[data-pick-b]', pick).filter((b) => b.getAttribute('aria-pressed') === 'true').map((b) => b.dataset.pickB);
+    $$<HTMLLIElement>('[data-for]', pick).forEach((li) => { li.hidden = !on.includes(li.dataset.for); });
+    res.hidden = on.length === 0;
+    const chosen = $$<HTMLInputElement>('input[type=checkbox]', pick).filter((c) => c.checked && !c.closest<HTMLElement>('li')!.hidden).map((c) => c.value);
+    go.href = chosen.length
+      ? `https://wa.me/${base.split('wa.me/')[1].split('?')[0]}?text=${encodeURIComponent(`Здравствуйте! Пишу с сайта TD Club. Интересуют: ${chosen.join(', ')}. Подскажите, пожалуйста, возраст, расписание и стоимость.`)}`
+      : base;
+  };
+  $$<HTMLButtonElement>('[data-pick-b]', pick).forEach((b) => b.addEventListener('click', () => {
+    b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')); update();
+  }));
+  pick.addEventListener('change', update);
 }

@@ -63,9 +63,13 @@ const nav = [['#napravleniya', 'Направления'], ['#mini', 'Мини-ц
         <li><a href={site.gis} target="_blank" rel="noopener">TD Club в 2ГИС</a></li>
       </ul>
     </div>
-    <p class="wrap ftr-note">Демо-концепт сайта. Логотип и фотографии взяты из Instagram центра только для показа.</p>
+    <p class="wrap ftr-note">Демо-концепт сайта. Логотип и фотографии взяты из Instagram центра и отзывов в 2ГИС только для показа.</p>
   </footer>
-  <a class="sticky btn btn-wa" href={waUrl()} target="_blank" rel="noopener" data-sticky data-goal="wa_sticky"><WaIcon /><span>Записаться в WhatsApp</span></a>
+  <nav class="bar" data-sticky aria-label="Быстрая связь">
+    <a class="bar-wa" href={waUrl()} target="_blank" rel="noopener" data-goal="wa_bar"><WaIcon /><span>WhatsApp</span></a>
+    <a class="bar-b" href={`tel:${site.phoneE164}`} data-goal="call_bar">Позвонить</a>
+    <a class="bar-b" href={site.route} target="_blank" rel="noopener" data-goal="route_bar">Маршрут</a>
+  </nav>
   <script>import '../scripts/main.ts';</script>
 </body>
 </html>

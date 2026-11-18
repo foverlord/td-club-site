@@ -6,8 +6,7 @@ import Star from '../components/Star.astro';
 import Sky from '../components/Sky.astro';
 import Hill from '../components/Hill.astro';
 import WaIcon from '../components/WaIcon.astro';
-import logo from '../assets/logo.png';
-import { site, waUrl, groups, more, mini, wins, gallery, showPrices } from '../data';
+import { site, waUrl, groups, more, mini, wins, gallery, showPrices, picks, preschool, priceOf } from '../data';
 const files = import.meta.glob<{ default: ImageMetadata }>('../assets/photos/*', { eager: true });
 const ph = (n: string) => {
   const m = Object.entries(files).find(([k]) => k.endsWith('/' + n))?.[1].default;
@@ -33,22 +32,56 @@ const heroImg = ph('girls-painting.webp');
     <Star size={22} class="hero-s1" /><Star size={14} class="hero-s2" />
     <div class="wrap hero-in">
       <div class="hero-txt">
-        <Image src={logo} alt="Логотип TD Club" width={64} height={64} class="hero-logo" loading="eager" />
         <h1 id="h1">Детский образовательный центр в&nbsp;<span class="chalk">Астане</span></h1>
         <p class="hero-sub">Talent Development Club</p>
         <div class="hero-btns">
           <a class="btn btn-wa" href={waUrl()} target="_blank" rel="noopener" data-goal="wa_hero"><WaIcon /><span>Написать в WhatsApp</span></a>
           <a class="btn btn-chalk" href={`tel:${site.phoneE164}`} data-goal="call_hero">Позвонить</a>
         </div>
-        <a class="rate" href={site.gis} target="_blank" rel="noopener">
-          <span class="rate-n">{site.rating.value}</span>
-          <span class="rate-s" aria-hidden="true">★★★★★</span>
-          <span class="rate-t">{site.rating.reviews} отзывов в 2ГИС</span>
-        </a>
+        <ul class="trust" aria-label="Коротко о центре">
+          <li><a href={site.gis} target="_blank" rel="noopener"><span class="trust-star" aria-hidden="true">★</span><b>{site.rating.value}</b>&nbsp;· {site.rating.reviews} отзывов в 2ГИС</a></li>
+          <li><span>Пн–пт до 20:30</span></li>
+          <li><a href={site.route} target="_blank" rel="noopener">Улы Дала, 31 · со стороны Сайран Арены</a></li>
+        </ul>
       </div>
       <figure class="hero-ph">
         <Image src={heroImg} alt="Девочки рисуют красками за мольбертом в TD Club" widths={cap(heroImg, [400, 588])} sizes="(min-width: 1024px) 460px, 90vw" loading="eager" fetchpriority="high" format="webp" quality={82} />
       </figure>
+    </div>
+  </section>
+
+  <!-- 1б. Подбор -->
+  <section class="pick" id="podbor" aria-labelledby="pick-h" data-pick>
+    <Sky seed={21} count={30} />
+    <div class="wrap pick-in">
+      <h2 id="pick-h">Что нравится ребёнку?</h2>
+      <p class="pick-lead">Отметьте одно или несколько, и мы покажем подходящие занятия.</p>
+      <div class="pick-btns" role="group" aria-label="Интересы ребёнка">
+        {picks.map((p) => (
+          <button type="button" class="pick-b" aria-pressed="false" data-pick-b={p.id}>
+            <span class="pick-ic" aria-hidden="true">
+              {p.id === 'move' && <svg viewBox="0 0 32 32"><circle cx="17" cy="6" r="3"/><path d="M15 11l-4 7 5 3-2 8M15 11l6 4 4-2M11 18l-5 1"/></svg>}
+              {p.id === 'draw' && <svg viewBox="0 0 32 32"><path d="M6 26c3 0 5-2 5-5l12-13a2.5 2.5 0 0 1 3.5 3.5L14 24c-2 2-4.5 2.5-8 2z"/><path d="M20 11l3 3"/></svg>}
+              {p.id === 'think' && <svg viewBox="0 0 32 32"><path d="M11 27h10M12 23h8l-1-6 3-3-2-5-5-3-3 2 1 3-4 4 2 2z"/></svg>}
+              {p.id === 'talk' && <svg viewBox="0 0 32 32"><path d="M5 7h17v11H12l-5 4v-4H5z"/><path d="M22 12h5v10h-2v4l-4-4h-7"/></svg>}
+            </span>
+            <span class="pick-l">{p.label}</span>
+          </button>
+        ))}
+      </div>
+      <div class="pick-res" data-pick-res hidden>
+        <ul class="pick-chips" data-pick-list aria-live="polite">
+          {picks.flatMap((p) => p.items.map((t) => (
+            <li data-for={p.id} hidden><label class="chip"><input type="checkbox" value={t} checked /><span>{t}{showPrices && priceOf(t) && <em>{priceOf(t)}</em>}</span></label></li>
+          )))}
+        </ul>
+        <p class="pick-sub">Для дошкольников:</p>
+        <ul class="pick-chips">
+          {preschool.map((t) => <li><label class="chip"><input type="checkbox" value={t} /><span>{t}{showPrices && priceOf(t) && <em>{priceOf(t)}</em>}</span></label></li>)}
+        </ul>
+        {showPrices && <p class="pick-note">Цены по прайсу 2ГИС, период уточняйте в WhatsApp.</p>}
+      </div>
+      <a class="btn btn-wa pick-go" href={waUrl()} target="_blank" rel="noopener" data-pick-go data-goal="wa_pick"><WaIcon /><span>Спросить в WhatsApp</span></a>
     </div>
     <Hill />
   </section>
@@ -67,12 +100,12 @@ const heroImg = ph('girls-painting.webp');
           const src = ph(g.photo);
           return (
             <article class="grp" id={`g-${g.id}`}>
-              <Image src={src} alt={g.alt} widths={cap(src, [360, 600])} sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw" format="webp" quality={78} />
+              <Image src={src} alt={g.alt} widths={cap(src, [360, 600])} sizes="(min-width: 1024px) 590px, (min-width: 640px) 45vw, 90vw" format="webp" quality={78} />
               <div class="grp-b">
                 <h3>{g.title}</h3>
                 <ul class="items">
                   {g.items.map((it) => (
-                    <li><a href={waUrl(it.title)} target="_blank" rel="noopener" data-goal="wa_dir"><span class="it-t">{it.title}</span>{showPrices && it.price && <span class="it-p">{it.price}<small>период уточняйте в WhatsApp</small></span>}</a></li>
+                    <li><a href={waUrl(it.title)} target="_blank" rel="noopener" data-goal="wa_dir"><span class="it-txt"><span class="it-t">{it.title}</span>{showPrices && it.price && <><span class="it-p">{it.price}</span><small class="it-n">период уточняйте в WhatsApp</small></>}</span><span class="it-wa" aria-hidden="true"><WaIcon /></span></a></li>
                   ))}
                 </ul>
               </div>
@@ -115,7 +148,7 @@ const heroImg = ph('girls-painting.webp');
           const src = ph(w.src);
           return (
             <li class={`win win--${i}`}>
-              <figure><Image src={src} alt={w.cap} widths={cap(src, [360, 605])} sizes="(min-width: 1024px) 400px, 90vw" format="webp" quality={78} /><figcaption>{w.cap}</figcaption></figure>
+              <figure><Image src={src} alt={w.cap} widths={cap(src, [360, 605])} sizes={i > 2 ? '(min-width: 1024px) 590px, (min-width: 640px) 45vw, 90vw' : '(min-width: 1024px) 390px, (min-width: 640px) 45vw, 90vw'} format="webp" quality={78} /><figcaption>{w.cap}</figcaption></figure>
             </li>
           );
         })}
@@ -169,13 +202,25 @@ const heroImg = ph('girls-painting.webp');
     </div>
   </section>
 
+  <!-- 7б. Как прийти впервые -->
+  <section class="sec" id="vpervye" aria-labelledby="first-h">
+    <div class="wrap">
+      <h2 id="first-h">Как прийти впервые</h2>
+      <ol class="steps">
+        <li><span class="st-n">1</span><b>Напишите в WhatsApp</b><a href={waUrl()} target="_blank" rel="noopener" data-goal="wa_steps">Открыть чат</a></li>
+        <li><span class="st-n">2</span><b>Выберите направление и время</b></li>
+        <li><span class="st-n">3</span><b>Приходите: Улы Дала 31, блок А3, подъезд 9</b><a href={site.route} target="_blank" rel="noopener">Маршрут в 2ГИС</a></li>
+      </ol>
+    </div>
+  </section>
+
   <!-- 8. Контакты -->
   <section class="sec" id="kontakty" aria-labelledby="ct-h">
     <div class="wrap ct">
       <div>
         <h2 id="ct-h">Как нас найти</h2>
         <p class="ct-addr">{site.address}</p>
-        <p class="ct-muted">{site.addressMore}. {site.metro}.</p>
+        <p class="ct-muted">{site.addressMore}.</p>
         <dl class="ct-hours">{site.hours.map(([d, h]) => <div><dt>{d}</dt><dd>{h}</dd></div>)}</dl>
         <p><a class="ct-phone" href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></p>
         <p class="ct-muted">Оплата наличными, картой, переводом или по QR.</p>

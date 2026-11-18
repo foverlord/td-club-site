@@ -11,7 +11,6 @@ export const site = {
   address: 'пр. Улы Дала, 31, НП 7, ЖК «Алпамыс»',
   addressMore: 'Блок А3, подъезд 9, со стороны Сайран Арены',
   city: 'Астана',
-  metro: 'Станция «Улы Дала» в 750 м',
   gis: 'https://2gis.kz/astana/firm/70000001067676021',
   route: 'https://2gis.kz/astana/directions/to/71.398231,51.100401',
   geo: { lat: 51.100401, lng: 71.398231 },
@@ -21,6 +20,7 @@ export const site = {
 /** Цены из прайса 2ГИС от 14.11.2026. false — карточки без цен. */
 export const showPrices = true;
 
+export const waText = (what?: string) => `Здравствуйте! Пишу с сайта TD Club.${what ? ` Интересует: ${what}.` : ''} Подскажите, пожалуйста, возраст, расписание и стоимость.`;
 export const waUrl = (what?: string) =>
   `https://wa.me/${site.wa}?text=${encodeURIComponent(`Здравствуйте! Пишу с сайта TD Club.${what ? ` Интересует: ${what}.` : ''} Подскажите, пожалуйста, возраст, расписание и стоимость.`)}`;
 
@@ -49,12 +49,25 @@ export const wins = [
   { src: 'holiday.webp', cap: 'Праздник в центре' },
 ];
 export const gallery = [
-  { src: 'girls-painting.webp', cap: 'Рисуем за мольбертами' },
+  { src: 'main-common.jpg', cap: 'Дети с рисунками и педагоги' },
   { src: 'mini-blocks.webp', cap: 'Строим из конструктора' },
-  { src: 'classroom.webp', cap: 'Класс подготовки к школе' },
-  { src: 'globe-craft.webp', cap: 'Делаем глобус из папье-маше' },
-  { src: 'chess.webp', cap: 'Партия в шахматы' },
-  { src: 'boy-painting.webp', cap: 'Своя картина на холсте' },
-  { src: 'mini-hospital.webp', cap: 'Сюжетная игра «Больница»' },
-  { src: 'mini-lego.webp', cap: 'Малыши в мини-центре' },
+  { src: 'rev13.jpg', cap: 'Мастерская: рисуем за общим столом' },
+  { src: 'rev14.jpg', cap: 'Зал с матами и звёздами' },
+  { src: 'rev05.jpg', cap: 'Пишем буквы у доски' },
+  { src: 'rev07.jpg', cap: 'Класс с проектором' },
+  { src: 'rev03.jpg', cap: 'Мольберт и краски' },
+  { src: 'rev09.jpg', cap: 'Партия в шахматы' },
 ];
+/** Подбор «Что нравится ребёнку?». Названия совпадают с прайсом. */
+export const picks = [
+  { id: 'move', label: 'Двигаться', items: ['Киокушинкай карате', 'Современные танцы', 'Хореография'] },
+  { id: 'draw', label: 'Рисовать', items: ['ИЗО-студия', 'Живопись'] },
+  { id: 'think', label: 'Думать', items: ['Шахматы', 'Программирование'] },
+  { id: 'talk', label: 'Говорить', items: ['Английский язык'] },
+];
+export const preschool = ['Подготовка к школе', 'Мини-центр'];
+export const priceOf = (t: string): string | undefined => {
+  if (t === mini.title) return mini.price;
+  for (const g of groups) for (const it of g.items) if (it.title === t) return it.price;
+  return undefined;
+};
