@@ -1,0 +1,71 @@
+---
+import '@fontsource/nunito/800.css';
+import '@fontsource/golos-text/400.css';
+import '@fontsource/golos-text/600.css';
+import '../styles/site.css';
+import { site, waUrl } from '../data';
+import WaIcon from '../components/WaIcon.astro';
+import Sky from '../components/Sky.astro';
+import Star from '../components/Star.astro';
+import Hill from '../components/Hill.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.origin).href;
+const ld = {
+  '@context': 'https://schema.org', '@type': 'ChildCare', name: site.name, alternateName: site.full, url: site.origin,
+  telephone: site.phoneE164, openingHours: ['Mo-Fr 09:00-20:30', 'Sa 10:00-14:00'],
+  address: { '@type': 'PostalAddress', streetAddress: `${site.address}, ${site.addressMore}`, addressLocality: site.city, addressCountry: 'KZ' },
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: site.rating.num, ratingCount: site.rating.marks, reviewCount: site.rating.reviews, bestRating: 5 },
+  sameAs: [site.gis, site.instagram],
+};
+const nav = [['#napravleniya', 'Направления'], ['#mini', 'Мини-центр'], ['#lager', 'Лагерь'], ['#foto', 'Фото'], ['#kontakty', 'Контакты']];
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:type" content="website" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:locale" content="ru_RU" />
+  <meta name="theme-color" content="#0F2E6E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+  <a class="skip" href="#main">К содержимому</a>
+  <header class="hdr" data-hdr>
+    <div class="wrap hdr-in">
+      <a class="logo" href="#top" aria-label="TD Club, на главную"><Image src={logo} alt="" width={40} height={40} class="logo-img" loading="eager" /><span class="logo-txt"><b>TD Club</b><span>Talent Development Club</span></span></a>
+      <nav class="nav" aria-label="Разделы">{nav.map(([h, l]) => <a href={h}>{l}</a>)}</nav>
+      <a class="btn btn-wa btn-sm" href={waUrl()} target="_blank" rel="noopener" data-goal="wa_header"><WaIcon /><span>Написать</span></a>
+    </div>
+  </header>
+  <main id="main"><slot /></main>
+  <footer class="ftr">
+    <Hill flip />
+    <Sky seed={3} count={34} />
+    <Star size={18} class="ftr-star" />
+    <div class="wrap ftr-in">
+      <div>
+        <p class="logo"><Image src={logo} alt="" width={48} height={48} class="logo-img" /><span class="logo-txt"><b>TD Club</b><span>Talent Development Club</span></span></p>
+        <p class="ftr-muted">Детский образовательный центр в Астане. {site.address}. {site.addressMore}.</p>
+      </div>
+      <ul class="ftr-links">
+        <li><a href={waUrl()} target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href={`tel:${site.phoneE164}`}>{site.phoneDisplay}</a></li>
+        <li><a href={site.instagram} target="_blank" rel="noopener">Instagram {site.igHandle}</a></li>
+        <li><a href={site.gis} target="_blank" rel="noopener">TD Club в 2ГИС</a></li>
+      </ul>
+    </div>
+    <p class="wrap ftr-note">Демо-концепт сайта. Логотип и фотографии взяты из Instagram центра только для показа.</p>
+  </footer>
+  <a class="sticky btn btn-wa" href={waUrl()} target="_blank" rel="noopener" data-sticky data-goal="wa_sticky"><WaIcon /><span>Записаться в WhatsApp</span></a>
+  <script>import '../scripts/main.ts';</script>
+</body>
+</html>

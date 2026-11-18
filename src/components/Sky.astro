@@ -1,0 +1,11 @@
+---
+/** Редкие белые точки и 1–2 жёлтые звезды, без свечения. */
+interface Props { seed?: number; count?: number; class?: string }
+const { seed = 7, count = 46, class: cls = '' } = Astro.props;
+let s = seed;
+const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+const dots = Array.from({ length: count }, () => ({ x: +(rnd() * 100).toFixed(2), y: +(rnd() * 100).toFixed(2), r: rnd() < 0.2 ? 1.6 : rnd() < 0.5 ? 1.1 : 0.7, o: +(0.35 + rnd() * 0.55).toFixed(2) }));
+---
+<svg class={`sky ${cls}`} aria-hidden="true" preserveAspectRatio="none" width="100%" height="100%">
+  {dots.map((d) => <circle cx={`${d.x}%`} cy={`${d.y}%`} r={d.r} fill="#fff" opacity={d.o} />)}
+</svg>
