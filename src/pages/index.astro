@@ -33,7 +33,7 @@ const heroImg = ph('girls-painting.webp');
     <Star size={22} class="hero-s1" /><Star size={14} class="hero-s2" />
     <div class="wrap hero-in">
       <div class="hero-txt">
-        <Image src={logo} alt="Логотип TD Club" width={112} height={112} class="hero-logo" loading="eager" />
+        <Image src={logo} alt="Логотип TD Club" width={64} height={64} class="hero-logo" loading="eager" />
         <h1 id="h1">Детский образовательный центр в&nbsp;<span class="chalk">Астане</span></h1>
         <p class="hero-sub">Talent Development Club</p>
         <div class="hero-btns">
@@ -59,7 +59,7 @@ const heroImg = ph('girls-painting.webp');
       <div class="sec-head">
         <h2 id="dir-h">Направления</h2>
         {showPrices
-          ? <p class="plaque">Цены за месяц по прайсу в 2ГИС на 14.11.2026. Период и расписание уточняйте в WhatsApp.</p>
+          ? <p class="plaque">Цены по прайсу в 2ГИС на 14.11.2026.</p>
           : <p class="lead">Возраст, расписание и стоимость подскажем в WhatsApp.</p>}
       </div>
       <div class="groups">
@@ -72,7 +72,7 @@ const heroImg = ph('girls-painting.webp');
                 <h3>{g.title}</h3>
                 <ul class="items">
                   {g.items.map((it) => (
-                    <li><a href={waUrl(it.title)} target="_blank" rel="noopener" data-goal="wa_dir"><span class="it-t">{it.title}</span>{showPrices && it.price && <span class="it-p">{it.price}</span>}</a></li>
+                    <li><a href={waUrl(it.title)} target="_blank" rel="noopener" data-goal="wa_dir"><span class="it-t">{it.title}</span>{showPrices && it.price && <span class="it-p">{it.price}<small>период уточняйте в WhatsApp</small></span>}</a></li>
                   ))}
                 </ul>
               </div>
@@ -94,7 +94,7 @@ const heroImg = ph('girls-painting.webp');
         <p class="kicker">Раннее развитие</p>
         <h2 id="mini-h">{mini.title}</h2>
         <p class="lead">Для малышей: игры, конструктор, сюжетные занятия и первые шаги в группе.</p>
-        {showPrices && <p class="mini-p">{mini.price}<span> в месяц</span></p>}
+        {showPrices && <p class="mini-p">{mini.price}<small>период уточняйте в WhatsApp</small></p>}
         <a class="btn btn-night" href={waUrl('мини-центр')} target="_blank" rel="noopener" data-goal="wa_mini"><WaIcon /><span>Узнать о мини-центре</span></a>
       </div>
       <div class="mini-ph">
