@@ -73,12 +73,12 @@ const heroImg = ph('girls-painting.webp');
       <div class="pick-res" data-pick-res hidden>
         <ul class="pick-chips" data-pick-list aria-live="polite">
           {picks.flatMap((p) => p.items.map((t) => (
-            <li data-for={p.id} hidden><label class="chip"><input type="checkbox" value={t} checked /><span>{t}{showPrices && priceOf(t) && <em>{priceOf(t)}</em>}</span></label></li>
+            <li data-for={p.id} hidden><label class="chip"><input type="checkbox" value={t} checked /><span>{t}{showPrices && <em>{priceOf(t) ?? 'цену уточнить'}</em>}</span></label></li>
           )))}
         </ul>
         <p class="pick-sub">Для дошкольников:</p>
         <ul class="pick-chips">
-          {preschool.map((t) => <li><label class="chip"><input type="checkbox" value={t} /><span>{t}{showPrices && priceOf(t) && <em>{priceOf(t)}</em>}</span></label></li>)}
+          {preschool.map((t) => <li><label class="chip"><input type="checkbox" value={t} /><span>{t}{showPrices && <em>{priceOf(t) ?? 'цену уточнить'}</em>}</span></label></li>)}
         </ul>
         {showPrices && <p class="pick-note">Цены по прайсу 2ГИС, период уточняйте в WhatsApp.</p>}
       </div>
