@@ -13,7 +13,7 @@ export const site = {
   city: 'Астана',
   station: 'станция «Улы Дала», 750 м',
   gis: 'https://2gis.kz/astana/firm/70000001067676021',
-  route: 'https://2gis.kz/astana/directions/to/71.398231,51.100401',
+  route: 'https://2gis.kz/astana/directions/points/%7C71.398231%2C51.100401%3B70000001067676021',
   geo: { lat: 51.100401, lng: 71.398231 },
   rating: { value: '5,0', num: 5, reviews: 110, marks: 157 },
   hours: [['Пн–Пт', '09:00–20:30'], ['Суббота', '10:00–14:00']] as const,
