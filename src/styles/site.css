@@ -44,7 +44,7 @@ figure { margin: 0 }
 .hdr.is-scrolled { box-shadow: 0 6px 18px rgba(11, 35, 86, .25) }
 .hdr-in { display: flex; align-items: center; gap: 24px; min-height: 68px }
 .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; margin: 0 }
-.logo-img { border-radius: 50%; width: 40px; height: 40px }
+.logo-img { border-radius: 50%; width: 44px; height: 44px }
 .logo-txt { display: grid; line-height: 1.1 }
 .logo-txt b { font: 800 18px/1.1 var(--head) }
 .logo-txt span { font-size: 12px; opacity: .78 }

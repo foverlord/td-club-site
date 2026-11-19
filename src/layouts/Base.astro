@@ -34,14 +34,14 @@ const nav = [['#napravleniya', 'Направления'], ['#mini', 'Мини-ц
   <link rel="canonical" href={canonical} />
   <meta property="og:type" content="website" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:locale" content="ru_RU" />
   <meta name="theme-color" content="#0F2E6E" />
-  <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <script type="application/ld+json" set:html={JSON.stringify(ld)} />
 </head>
 <body>
   <a class="skip" href="#main">К содержимому</a>
   <header class="hdr" data-hdr>
     <div class="wrap hdr-in">
-      <a class="logo" href="#top" aria-label="TD Club, на главную"><Image src={logo} alt="" width={40} height={40} densities={[1, 2]} class="logo-img" loading="eager" /><span class="logo-txt"><b>TD Club</b><span>Talent Development Club</span></span></a>
+      <a class="logo" href="#top" aria-label="TD Club, на главную"><Image src={logo} alt="" width={44} height={44} densities={[1, 2]} class="logo-img" loading="eager" /><span class="logo-txt"><b>TD Club</b><span>Talent Development Club</span></span></a>
       <nav class="nav" aria-label="Разделы">{nav.map(([h, l]) => <a href={h}>{l}</a>)}</nav>
       <a class="btn btn-wa btn-sm" href={waUrl()} target="_blank" rel="noopener" data-goal="wa_header"><WaIcon /><span>Написать</span></a>
     </div>
